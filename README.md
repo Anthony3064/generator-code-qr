@@ -1,6 +1,6 @@
 # generator-code-qr
 
-##Dependencies
+## Dependencies
  - npm i nodemon express qrcode
 
 ## To run in developer mode
