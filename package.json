@@ -1,0 +1,17 @@
+{
+    "name": "generador_qr",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app.js",
+    "scripts": {
+        "start": "node ./app.js",
+        "test": "nodemon ./app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "express": "^4.17.3",
+        "nodemon": "^2.0.16",
+        "qrcode": "^1.5.0"
+    }
+}

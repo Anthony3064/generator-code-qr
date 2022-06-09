@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Generator Code QR</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script defer src="./public/js/button-generatorqr.js"></script>
+</head>
+
+<body>
+    <div class="container">
+
+        <section class="qr-section">
+
+            <h1 class="title">
+                Generate Code QR
+            </h1>
+
+            <form action="" method="get" id="form" class="qr-form">
+                <div class="inputs-container">
+                    <input name="text-to-codeqr" class="inputs" type="text">
+                </div>
+                <button id="button" class="button" onclick="generateQR()">Generate</button>
+            </form>
+
+            <figure id="container-image" class="container-image">
+                <img id="qrcode" alt="Code QR">
+            </figure>
+
+        </section>
+
+    </div>
+    <script>
+        generateQR = () => {
+            const form = document.getElementById('form');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+            });
+
+            let xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = () => {
+                console.log(xhttp);
+                if (xhttp.readyState == 4 && xhttp.status == 200) {
+                    document.getElementById("qrcode").src = xhttp.responseText;
+                    document.getElementById("qrcode").style.width = '100%';
+                    document.getElementById("container-image").style.display = 'flex';
+                }
+            };
+
+            xhttp.open('GET', '/generateQR?link=' + form['text-to-codeqr'].value, true);
+            xhttp.send();
+        }
+    </script>
+</body>
+
+</html>
