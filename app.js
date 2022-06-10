@@ -11,12 +11,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', (req, res) => {
+app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 app.get('/generateQR', async(req, res) => {
-    res.send(await generadorCodQR(req.query.link));
+    const result = await generadorCodQR(req.query.link);
+    res.send(result == null ? '' : result);
 });
 
 app.listen(port, () => {

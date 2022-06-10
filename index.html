@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Generator Code QR</title>
     <link rel="stylesheet" href="./css/style.css">
-    <script defer src="./public/js/button-generatorqr.js"></script>
 </head>
 
 <body>
@@ -19,6 +18,15 @@
             </h1>
 
             <form action="" method="get" id="form" class="qr-form">
+
+                <div id="message" class="inputs-container message">
+                    <p class="text">
+                        Text is required to generate "Code QR".
+                        <button class="icon" onclick="closeMessage()">X</button>
+                    </p>
+
+                </div>
+
                 <div class="inputs-container">
                     <input name="text-to-codeqr" class="inputs" type="text">
                 </div>
@@ -41,16 +49,28 @@
 
             let xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = () => {
-                console.log(xhttp);
                 if (xhttp.readyState == 4 && xhttp.status == 200) {
-                    document.getElementById("qrcode").src = xhttp.responseText;
-                    document.getElementById("qrcode").style.width = '100%';
-                    document.getElementById("container-image").style.display = 'flex';
+
+                    if (xhttp.responseText === undefined || xhttp.responseText === '') {
+                        document.getElementById("container-image").style.display = 'none';
+                        document.getElementById("message").style.display = 'flex';
+                    } else {
+                        document.getElementById("message").style.display = 'none';
+                        document.getElementById("qrcode").src = xhttp.responseText;
+                        document.getElementById("qrcode").style.width = '100%';
+                        document.getElementById("container-image").style.display = 'flex';
+                    }
+
                 }
             };
 
             xhttp.open('GET', '/generateQR?link=' + form['text-to-codeqr'].value, true);
             xhttp.send();
+        };
+
+        closeMessage = () => {
+            const message = document.getElementById("message");
+            message.style.display = 'none';
         }
     </script>
 </body>
